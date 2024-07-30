@@ -1,0 +1,6 @@
+#direct-messages {
+    flex: 1 1 50%;
+    /* Flex-grow, flex-shrink, and flex-basis */
+    padding: 10px;
+    overflow-y: hidden;
+}

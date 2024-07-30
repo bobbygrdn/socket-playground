@@ -1,0 +1,12 @@
+#contextWindow {
+    flex-grow: 1;
+    position: fixed;
+    top: 80px;
+    left: 259px;
+    height: 810px;
+    width: 86%;
+    background-color: #292929;
+    border: 1px solid #989898;
+    border-radius: 5px;
+    padding: 5px 5px;
+}
