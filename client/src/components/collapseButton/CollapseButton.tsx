@@ -1,7 +1,12 @@
 import { useState, useEffect } from 'react';
 import './CollapseButton.css';
 
-export const CollapseButton = ({ initialIsVisible = false, onToggle }) => {
+type CollapseButtonProps = {
+    initialIsVisible?: boolean;
+    onToggle?: (isVisible: boolean) => void;
+};
+
+export const CollapseButton: React.FC<CollapseButtonProps> = ({ initialIsVisible = false, onToggle }) => {
     const [isVisible, setIsVisible] = useState(initialIsVisible);
 
     useEffect(() => {
@@ -22,3 +27,4 @@ export const CollapseButton = ({ initialIsVisible = false, onToggle }) => {
         </button>
     );
 };
+

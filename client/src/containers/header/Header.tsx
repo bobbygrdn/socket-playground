@@ -1,8 +1,8 @@
 import './Header.css';
-import companyLogo from '../../assets/images/company-logo.png';
-import profileImage from '../../assets/images/profile-image.png';
+import profileImage from "../../assets/images/profile-image.png";
+import companyLogo from "../../assets/images/company-logo.png";
 
-export const Header = () => {
+export const Header: React.FC = (): JSX.Element => {
     return (
         <header className="header">
             <img src={companyLogo} alt="Company Logo" className="logo" />

@@ -2,10 +2,12 @@ import './Channels.css';
 import { useState } from 'react';
 import { CollapseButton } from '../../components/collapseButton/CollapseButton';
 
-const channels = ['general', 'random', 'react', 'redux']
+const channels: string[] = ['general', 'random', 'react', 'redux'];
 
-export const Channels = () => {
-    const [isVisible, setIsVisible] = useState(true);
+export const Channels = (): JSX.Element => {
+    const [isVisible, setIsVisible] = useState<boolean>(true);
+
+    const handleToggle = (isVisible: boolean): void => setIsVisible(!isVisible);
 
     return (
         <section id="channels">
@@ -13,12 +15,12 @@ export const Channels = () => {
                 Channels
                 <CollapseButton
                     initialIsVisible={isVisible}
-                    onToggle={setIsVisible}
+                    onToggle={handleToggle}
                 />
             </h2>
             {isVisible && (
                 <ul>
-                    {channels.map(channel => (
+                    {channels.map((channel: string) => (
                         <li className="channel" key={channel}>
                             <span>#</span> {channel}
                         </li>
@@ -26,5 +28,5 @@ export const Channels = () => {
                 </ul>
             )}
         </section>
-    )
+    );
 };
