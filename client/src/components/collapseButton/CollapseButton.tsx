@@ -22,7 +22,7 @@ export const CollapseButton: React.FC<CollapseButtonProps> = ({ initialIsVisible
     };
 
     return (
-        <button style={{ marginLeft: '2px' }} onClick={toggleVisibility}>
+        <button id="collapseButton" onClick={toggleVisibility}>
             {isVisible ? '<' : '>'}
         </button>
     );

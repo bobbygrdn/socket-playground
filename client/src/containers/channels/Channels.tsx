@@ -8,15 +8,13 @@ const channels: string[] = ['general', 'random', 'react', 'redux'];
 export const Channels = (): JSX.Element => {
     const [isVisible, setIsVisible] = useState<boolean>(true);
 
-    const handleToggle = (isVisible: boolean): void => setIsVisible(!isVisible);
-
     return (
         <section id="channels">
-            <h2>
+            <h2 style={{ display: 'flex' }}>
                 Channels
                 <CollapseButton
                     initialIsVisible={isVisible}
-                    onToggle={handleToggle}
+                    onToggle={setIsVisible}
                 />
             </h2>
             {isVisible && (

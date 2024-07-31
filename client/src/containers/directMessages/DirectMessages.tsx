@@ -11,7 +11,9 @@ export const DirectMessages: React.FC = () => {
 
     return (
         <section id="direct-messages">
-            <h2 style={{ display: 'flex' }}>
+            <h2 style={{
+                display: 'flex', fontSize: 'large', alignItems: 'center'
+            }}>
                 Direct Messages
                 <CollapseButton
                     initialIsVisible={isVisible}
