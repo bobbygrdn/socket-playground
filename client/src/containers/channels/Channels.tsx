@@ -1,6 +1,7 @@
 import './Channels.css';
 import { useState } from 'react';
 import { CollapseButton } from '../../components/collapseButton/CollapseButton';
+import { Channel } from "../../components/channel/Channel";
 
 const channels: string[] = ['general', 'random', 'react', 'redux'];
 
@@ -21,9 +22,7 @@ export const Channels = (): JSX.Element => {
             {isVisible && (
                 <ul>
                     {channels.map((channel: string) => (
-                        <li className="channel" key={channel}>
-                            <span>#</span> {channel}
-                        </li>
+                        <Channel key={channel} channel={channel} />
                     ))}
                 </ul>
             )}
