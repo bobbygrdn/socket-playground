@@ -4,7 +4,12 @@ import './DirectMessages.css';
 import profileImage from "../../assets/images/profile-image.png"
 import { Connection } from '../../components/connection/Connection';
 
-const users: string[] = ['user1', 'user2', 'user3', 'user4'];
+type Conversation = {
+    name: string;
+    id: number;
+}
+
+const users: Conversation[] = [{ name: 'Robert', id: 1 }, { name: 'Samantha', id: 2 }, { name: 'Carlos', id: 3 }, { name: 'Chan', id: 4 }];
 
 export const DirectMessages: React.FC = () => {
     const [isVisible, setIsVisible] = useState<boolean>(true);
@@ -22,8 +27,8 @@ export const DirectMessages: React.FC = () => {
             </h2>
             {isVisible && (
                 <ul>
-                    {users.map((user: string) => (
-                        <Connection key={user} profileImage={profileImage} user={user} />
+                    {users.map((user: Conversation) => (
+                        <Connection key={user.id} profileImage={profileImage} user={user.name} userId={user.id} />
                     ))}
                 </ul>
             )}
