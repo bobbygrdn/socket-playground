@@ -1,11 +1,13 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { publicDecrypt } = require('crypto');
 
 module.exports = {
     entry: './src/index.tsx',
     output: {
         filename: 'bundle.js',
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, 'dist'),
+        publicPath: '/'
     },
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.jsx']
@@ -30,6 +32,9 @@ module.exports = {
         })
     ],
     devServer: {
-        static: './dist'
+        static: './dist',
+        compress: true,
+        port: 8080,
+        historyApiFallback: true
     }
 };
