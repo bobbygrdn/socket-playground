@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 interface ConnectionProps {
     profileImage: string;
     user: string;
-    userId: number;
+    userId: string;
 }
 
 export const Connection: React.FC<ConnectionProps> = ({ profileImage, user, userId }) => {

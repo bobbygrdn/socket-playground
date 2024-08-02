@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 interface ChannelProps {
     channel: string;
-    channelId: number;
+    channelId: string;
 }
 
 export const Channel: React.FC<ChannelProps> = ({ channel, channelId }) => {
