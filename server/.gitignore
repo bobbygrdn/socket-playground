@@ -1,6 +1,11 @@
 # dependencies
 /node_modules
 
+# production
+/build
+/dist
+/data
+
 # logs
 logs
 *.log
