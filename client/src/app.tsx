@@ -1,10 +1,19 @@
 import { MainWindow } from './containers/mainWindow/MainWindow';
-import { ChatProvider } from './context/ChatContext';
+import { Authentication } from './containers/authentication/Authentication';
+import { Login } from './containers/login/Login';
+import { Register } from './containers/register/Register';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 export const App: React.FC = (): JSX.Element => {
     return (
-        <ChatProvider>
-            <MainWindow />
-        </ChatProvider>
+        <Router>
+            <Routes>
+                <Route path="/" element={<Authentication />}>
+                    <Route path="login" element={<Login />} />
+                    <Route path="register" element={<Register />} />
+                </Route>
+                <Route path="/home/*" element={<MainWindow />} />
+            </Routes>
+        </Router>
     );
 }
