@@ -1,17 +1,25 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { CollapseButton } from '../../components/collapseButton/CollapseButton';
 import './DirectMessages.css';
 import profileImage from "../../assets/images/profile-image.png"
 import { Connection } from '../../components/connection/Connection';
+import { ChatContext } from '../../context/ChatContext';
 
-type Conversation = {
-    name: string;
-    id: number;
+type Chat = {
+    chatName: string;
+    _id: string;
 }
 
-const users: Conversation[] = [{ name: 'Robert', id: 1 }, { name: 'Samantha', id: 2 }, { name: 'Carlos', id: 3 }, { name: 'Chan', id: 4 }];
-
 export const DirectMessages: React.FC = () => {
+
+    const chatContext = useContext(ChatContext);
+
+    if (!chatContext) {
+        throw new Error('ContextWindow must be used within a ChatProvider');
+    }
+
+    const { chats } = chatContext;
+
     const [isVisible, setIsVisible] = useState<boolean>(true);
 
     return (
@@ -27,8 +35,8 @@ export const DirectMessages: React.FC = () => {
             </h2>
             {isVisible && (
                 <ul>
-                    {users.map((user: Conversation) => (
-                        <Connection key={user.id} profileImage={profileImage} user={user.name} userId={user.id} />
+                    {chats.map((chat: Chat) => (
+                        <Connection key={chat._id} profileImage={profileImage} user={chat.chatName} userId={chat._id} />
                     ))}
                 </ul>
             )}
