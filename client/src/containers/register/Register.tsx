@@ -1,7 +1,6 @@
 import { useState, useRef } from 'react';
 import { registerUser } from '../../service/registerService';
 import { useNavigate } from 'react-router-dom';
-import './Register.css';
 
 export const Register: React.FC = (): JSX.Element => {
 
@@ -69,6 +68,11 @@ export const Register: React.FC = (): JSX.Element => {
             <button className="submit" type="submit">
                 Sign Up
             </button>
+
+            <p className="signup-link">
+                Already have an account?
+                <a href="/login">Login</a>
+            </p>
         </form>
     )
 }
