@@ -1,7 +1,7 @@
 import mongoose, { Mongoose } from 'mongoose';
 
 export const mongoDatabase = {
-    initConnetion: async (): Promise<Mongoose> => {
+    initConnection: async (): Promise<Mongoose> => {
         try {
             const { MONGODB_CONNECTION_STRING } = process.env;
             console.log("Mongo DB Connection String: ", MONGODB_CONNECTION_STRING);
