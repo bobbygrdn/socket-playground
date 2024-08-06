@@ -2,20 +2,20 @@ import mongoose, { Model, ObjectId, Schema } from 'mongoose';
 
 export type Chat = {
     chatName: string;
-    isGroupChat: boolean;
+    isChannel: boolean;
     users: ObjectId[];
-    groupAdmin: ObjectId[];
+    chatAdmin: ObjectId[];
 };
 
 const mongooseChatSchema = new Schema<Chat>(
     {
         chatName: { type: String, trim: true, required: true },
-        isGroupChat: { type: Boolean, default: false },
+        isChannel: { type: Boolean, default: false },
         users: {
             type: [{ type: Schema.Types.ObjectId, ref: "User" }],
             required: true
         },
-        groupAdmin: {
+        chatAdmin: {
             type: [{ type: Schema.Types.ObjectId, ref: "User" }],
             required: true
         },
