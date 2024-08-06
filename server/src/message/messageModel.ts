@@ -1,6 +1,6 @@
 import mongoose, { Model, ObjectId, Schema } from 'mongoose';
 
-type Message = {
+export type Message = {
     sender: ObjectId;
     content: string;
     chat: ObjectId;
