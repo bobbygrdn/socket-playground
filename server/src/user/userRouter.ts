@@ -1,6 +1,5 @@
 import express, { Request, Response, Router } from "express";
 import { userService } from "./userService";
-import { ServiceResponse } from "../common/models/serviceResponse";
 import { handleServiceResponse } from "../common/utils/httpHandlers";
 
 export const userRouter: Router = (() => {
