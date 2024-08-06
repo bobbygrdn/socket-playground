@@ -13,7 +13,7 @@ export const chatService = {
                 return new ServiceResponse(ResponseStatus.Failed, 'No chat accessed', null, StatusCodes.NOT_FOUND);
             }
 
-            return new ServiceResponse<Chat>(ResponseStatus.Success, 'Chat accessed', chat, StatusCodes.OK);
+            return new ServiceResponse<Chat>(ResponseStatus.Success, 'Chat accessed successfully', chat, StatusCodes.OK);
         } catch (error) {
 
             const errorMessage = `Error accessing chat: $${(error as Error).message}`;
@@ -34,7 +34,7 @@ export const chatService = {
                 return new ServiceResponse(ResponseStatus.Failed, 'No chats found', null, StatusCodes.NOT_FOUND);
             }
 
-            return new ServiceResponse<Chat[]>(ResponseStatus.Success, 'Chat accessed', chats, StatusCodes.OK);
+            return new ServiceResponse<Chat[]>(ResponseStatus.Success, 'Chats accessed successfully', chats, StatusCodes.OK);
         } catch (error) {
 
             const errorMessage = `Error accessing chats: $${(error as Error).message}`;
@@ -55,7 +55,7 @@ export const chatService = {
                 return new ServiceResponse(ResponseStatus.Failed, 'Channel not created', null, StatusCodes.NOT_FOUND);
             }
 
-            return new ServiceResponse<Chat>(ResponseStatus.Success, 'Channel created', channel, StatusCodes.OK);
+            return new ServiceResponse<Chat>(ResponseStatus.Success, 'Channel created successfully', channel, StatusCodes.OK);
         } catch (error) {
 
             const errorMessage = `Error creating channel: $${(error as Error).message}`;

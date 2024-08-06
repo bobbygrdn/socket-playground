@@ -28,7 +28,7 @@ export const messageService = {
             if (!createdMessage) {
                 return new ServiceResponse(ResponseStatus.Failed, 'No Message created', null, StatusCodes.NOT_FOUND);
             }
-            return new ServiceResponse<Message>(ResponseStatus.Success, 'Users created', createdMessage, StatusCodes.OK);
+            return new ServiceResponse<Message>(ResponseStatus.Success, 'Message created', createdMessage, StatusCodes.OK);
         } catch (error) {
             const errorMessage = `Error creating message: $${(error as Error).message}`;
             console.error(error);
