@@ -4,7 +4,7 @@ import { CollapseButton } from '../../components/collapseButton/CollapseButton';
 import { Channel } from "../../components/channel/Channel";
 import { ChatContext } from '../../context/ChatContext';
 
-type GroupChat = {
+type Channel = {
     chatName: string;
     _id: string;
 }
@@ -17,7 +17,7 @@ export const Channels = (): JSX.Element => {
         throw new Error('ContextWindow must be used within a ChatProvider');
     }
 
-    const { groupChats } = chatContext;
+    const { channels } = chatContext;
 
     const [isVisible, setIsVisible] = useState<boolean>(true);
 
@@ -32,8 +32,8 @@ export const Channels = (): JSX.Element => {
             </h2>
             {isVisible && (
                 <ul>
-                    {groupChats.map((groupChat: GroupChat) => (
-                        <Channel key={groupChat.chatName} channel={groupChat.chatName} channelId={groupChat._id} />
+                    {channels.map((channel: Channel) => (
+                        <Channel key={channel.chatName} channel={channel.chatName} channelId={channel._id} />
                     ))}
                 </ul>
             )}
