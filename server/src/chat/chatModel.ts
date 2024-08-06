@@ -1,6 +1,6 @@
 import mongoose, { Model, ObjectId, Schema } from 'mongoose';
 
-type Chat = {
+export type Chat = {
     chatName: string;
     isGroupChat: boolean;
     users: ObjectId[];
