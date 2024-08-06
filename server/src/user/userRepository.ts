@@ -10,7 +10,7 @@ export const userRepository = {
     },
 
     // Get all users
-    findAllAsync: async () => {
+    findAllAsync: async (): Promise<User[] | null> => {
         try {
             await userRepository.startConnection();
             return await User.find();
@@ -21,7 +21,7 @@ export const userRepository = {
     },
 
     // Get user by id
-    findByIdAsync: async (id: string) => {
+    findByIdAsync: async (id: string): Promise<User | null> => {
         try {
             await userRepository.startConnection();
             return await User.findById(id);
@@ -47,7 +47,7 @@ export const userRepository = {
     },
 
     // Login user
-    validateAsync: async (req: Request) => {
+    validateAsync: async (req: Request): Promise<User | null> => {
         try {
             const { email, password } = req.body;
             await userRepository.startConnection();
@@ -64,7 +64,7 @@ export const userRepository = {
     },
 
     // Update user
-    updateAsync: async (id: string, user: User) => {
+    updateAsync: async (id: string, user: User): Promise<User | null> => {
         try {
             await userRepository.startConnection();
             const updatedUser = await User.findByIdAndUpdate(id, user, { new: true });
