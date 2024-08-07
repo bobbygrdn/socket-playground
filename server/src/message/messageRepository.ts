@@ -3,7 +3,6 @@ import { User } from '../user/userModel';
 import { mongoDatabase } from '../mongoDatabase';
 import { Request } from 'express';
 
-// TODO: Update according to messageController.js
 export const messageRepository = {
 
     // Start MongoDB connection
