@@ -2,6 +2,7 @@ import { mongoDatabase } from "../mongoDatabase";
 import { Chat } from "./chatModel";
 import { Request } from "express";
 
+// TODO: Update according to chatController.js
 export const chatRepository = {
     // Start MongoDB connection
     startConnection: async () => {
@@ -24,7 +25,7 @@ export const chatRepository = {
         try {
             await chatRepository.startConnection();
 
-            const { userId, id } = req.params;
+            const { userId, id } = req.body;
 
             let isChat = await Chat.find({
                 $and: [
@@ -43,6 +44,7 @@ export const chatRepository = {
                 }
                 try {
                     const createChat = new Chat(chatData);
+                    await createChat.save();
                     const fullChat = await Chat.findOne({ _id: createChat._id }).populate(
                         "users",
                         "-password"
@@ -63,9 +65,17 @@ export const chatRepository = {
     createChannelAsync: async (req: Request): Promise<Chat | null> => {
         try {
             await chatRepository.startConnection();
-            const createdChat = await Chat.create(req.body);
-            const newCreatedChat = await Chat.findOne({ _id: createdChat._id });
-            return newCreatedChat;
+            const existingChat = await Chat.findOne({ chatName: req.body.chatName });
+
+            if (existingChat) {
+                return null
+            } else {
+                const createdChat = new Chat(req.body);
+                await createdChat.save();
+                const newCreatedChat = await Chat.findOne({ _id: createdChat._id });
+                return newCreatedChat;
+            }
+
         } catch (error) {
             console.error(error);
             return null;
@@ -78,7 +88,7 @@ export const chatRepository = {
             await chatRepository.startConnection();
             const { id } = req.params;
             const { name } = req.body;
-            const updatedChat = await Chat.findByIdAndUpdate(id, { name: name }, { new: true });
+            const updatedChat = await Chat.findByIdAndUpdate(id, { chatName: name }, { new: true });
             return updatedChat;
         } catch (error) {
             console.error(error);
