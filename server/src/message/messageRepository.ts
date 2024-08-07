@@ -1,4 +1,5 @@
 import { Message } from './messageModel';
+import { User } from '../user/userModel';
 import { mongoDatabase } from '../mongoDatabase';
 import { Request } from 'express';
 
@@ -11,10 +12,13 @@ export const messageRepository = {
     },
 
     // Get Message by id
-    findByIdAsync: async (id: string) => {
+    findByChatIdAsync: async (chatId: string) => {
         try {
             await messageRepository.startConnection();
-            return await Message.findById(id);
+            const messages = await Message.find({ chat: chatId })
+                .populate("sender", "name profilePic email")
+                .populate("chat");
+            return messages;
         } catch (error) {
             console.error(error);
             return null;
@@ -26,9 +30,20 @@ export const messageRepository = {
         try {
             await messageRepository.startConnection();
             const newMessage = new Message(req.body);
+
+            if (!newMessage) return null;
+
             await newMessage.save();
 
-            const findNewMessage = messageRepository.findByIdAsync(newMessage._id.toString());
+            let findNewMessage = await Message.findOne({ _id: newMessage._id })
+                .populate("sender", "name profilePic")
+                .populate("chat");
+
+            findNewMessage = await User.populate(findNewMessage, {
+                path: "chat.users",
+                select: "name profilePic email",
+            }) as any;
+
             return findNewMessage;
         } catch (error) {
             console.error(error);
