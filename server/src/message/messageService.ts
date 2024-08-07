@@ -7,15 +7,15 @@ import { Request } from 'express';
 export const messageService = {
 
     // Get Message by id
-    findById: async (id: string): Promise<ServiceResponse<Message | null>> => {
+    findById: async (id: string): Promise<ServiceResponse<Message[] | null>> => {
         try {
-            const message = await messageRepository.findByIdAsync(id);
-            if (!message) {
-                return new ServiceResponse(ResponseStatus.Failed, 'No message found', null, StatusCodes.NOT_FOUND);
+            const messages = await messageRepository.findByChatIdAsync(id);
+            if (!messages) {
+                return new ServiceResponse(ResponseStatus.Failed, 'No messages found', null, StatusCodes.NOT_FOUND);
             }
-            return new ServiceResponse<Message>(ResponseStatus.Success, 'Message found', message, StatusCodes.OK);
+            return new ServiceResponse<Message[]>(ResponseStatus.Success, 'Messages found', messages, StatusCodes.OK);
         } catch (error) {
-            const errorMessage = `Error finding message: $${(error as Error).message}`;
+            const errorMessage = `Error finding messages: $${(error as Error).message}`;
             console.error(error);
             return new ServiceResponse(ResponseStatus.Failed, errorMessage, null, StatusCodes.INTERNAL_SERVER_ERROR);
         }
