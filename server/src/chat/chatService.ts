@@ -52,10 +52,10 @@ export const chatService = {
             const channel = await chatRepository.createChannelAsync(req);
 
             if (!channel) {
-                return new ServiceResponse(ResponseStatus.Failed, 'Channel not created', null, StatusCodes.NOT_FOUND);
+                return new ServiceResponse(ResponseStatus.Failed, 'Channel already exists', null, StatusCodes.CONFLICT);
             }
 
-            return new ServiceResponse<Chat>(ResponseStatus.Success, 'Channel created successfully', channel, StatusCodes.OK);
+            return new ServiceResponse<Chat>(ResponseStatus.Success, 'Channel created successfully', channel, StatusCodes.CREATED);
         } catch (error) {
 
             const errorMessage = `Error creating channel: $${(error as Error).message}`;
@@ -133,7 +133,7 @@ export const chatService = {
     removeUserFromChannel: async (req: Request): Promise<ServiceResponse<Chat | null>> => {
         try {
 
-            const channel = await chatRepository.createChannelAsync(req);
+            const channel = await chatRepository.removeUserFromChannelAsync(req);
 
             if (!channel) {
                 return new ServiceResponse(ResponseStatus.Failed, 'User not removed from channel', null, StatusCodes.NOT_FOUND);
