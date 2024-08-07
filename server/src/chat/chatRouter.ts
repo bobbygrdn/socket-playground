@@ -11,9 +11,9 @@ export const chatRouter: Router = (() => {
         handleServiceResponse(serviceResponse, res);
     });
 
-    // Get all chats
-    router.get('/', async (req: Request, res: Response) => {
-        const serviceResponse = await chatService.findAll();
+    // Get all chats for user
+    router.get('/:id', async (req: Request, res: Response) => {
+        const serviceResponse = await chatService.findAll(req);
         handleServiceResponse(serviceResponse, res);
     });
 
