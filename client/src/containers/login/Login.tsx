@@ -24,6 +24,7 @@ export const Login: React.FC = (): JSX.Element => {
 
         const sendRequest = loginUser({ email, password });
 
+        // TODO: Update to login the user upon success and not login the user upon any other response
         if (await sendRequest) {
             navigate('/home');
         }
