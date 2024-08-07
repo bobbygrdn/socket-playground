@@ -25,10 +25,10 @@ export const chatService = {
     },
 
     // Get all chats
-    findAll: async (): Promise<ServiceResponse<Chat[] | null>> => {
+    findAll: async (req: Request): Promise<ServiceResponse<Chat[] | null>> => {
         try {
 
-            const chats = await chatRepository.findAllAsync();
+            const chats = await chatRepository.findAllAsync(req);
 
             if (!chats) {
                 return new ServiceResponse(ResponseStatus.Failed, 'No chats found', null, StatusCodes.NOT_FOUND);
@@ -91,13 +91,15 @@ export const chatService = {
     deleteChannel: async (req: Request): Promise<ServiceResponse<null>> => {
         try {
 
+            const findChannel = await Chat.findOne({ _id: req.params.id }).select('chatName').lean();
+            const chatName = findChannel ? findChannel.chatName : null;
             const channel = await chatRepository.deleteChannelAsync(req);
 
             if (!channel) {
                 return new ServiceResponse(ResponseStatus.Failed, 'Channel not deleted', null, StatusCodes.NOT_FOUND);
             }
 
-            return new ServiceResponse<null>(ResponseStatus.Success, 'Channel deleted', null, StatusCodes.OK);
+            return new ServiceResponse<null>(ResponseStatus.Success, `${chatName} Channel deleted`, null, StatusCodes.OK);
         } catch (error) {
 
             const errorMessage = `Error deleting channel: $${(error as Error).message}`;
