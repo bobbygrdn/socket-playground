@@ -2,6 +2,7 @@ import { Request } from "express";
 import { mongoDatabase } from "../mongoDatabase";
 import { User } from "./userModel";
 
+// TODO: Update by adding authentication with either tokens or sessions
 export const userRepository = {
 
     // Start MongoDB connection
