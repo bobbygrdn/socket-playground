@@ -18,7 +18,7 @@ app.use(express.json());
 app.use("/", healthCheckRouter);
 app.use("/api/users", userRouter);
 app.use("/api/messages", messageRouter);
-app.use("/api/chat", chatRouter);
+app.use("/api/chats", chatRouter);
 
 app.use(errorHandler());
 
