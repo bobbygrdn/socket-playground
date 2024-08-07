@@ -1,8 +1,8 @@
 import { mongoDatabase } from "../mongoDatabase";
 import { Chat } from "./chatModel";
+import { User } from "../user/userModel";
 import { Request } from "express";
 
-// TODO: Update according to chatController.js
 export const chatRepository = {
     // Start MongoDB connection
     startConnection: async () => {
@@ -10,10 +10,20 @@ export const chatRepository = {
     },
 
     // Get all chats
-    findAllAsync: async (): Promise<Chat[] | null> => {
+    findAllAsync: async (req: Request): Promise<Chat[] | null> => {
         try {
             await chatRepository.startConnection();
-            return await Chat.find();
+            let chats = await Chat.find({ users: { $elemMatch: { $eq: req.params.id } } })
+                .populate("users", "-password")
+                .populate("chatAdmin", "-password")
+                .sort({ updatedAt: -1 });
+
+            chats = await User.populate(chats, {
+                path: "users",
+                select: "name profilePic email"
+            }) as any;
+
+            return chats;
         } catch (error) {
             console.error(error);
             return null;
@@ -34,6 +44,12 @@ export const chatRepository = {
                 ],
             })
                 .populate("users", "-password");
+
+            isChat = await User.populate(isChat, {
+                path: "users",
+                select: "name profilePic email"
+            }) as any;
+
             if (isChat.length > 0) {
                 return isChat[0];
             } else {
@@ -42,9 +58,11 @@ export const chatRepository = {
                     isChannel: false,
                     users: [userId, id],
                 }
+
                 try {
                     const createChat = new Chat(chatData);
                     await createChat.save();
+
                     const fullChat = await Chat.findOne({ _id: createChat._id }).populate(
                         "users",
                         "-password"
@@ -72,7 +90,10 @@ export const chatRepository = {
             } else {
                 const createdChat = new Chat(req.body);
                 await createdChat.save();
-                const newCreatedChat = await Chat.findOne({ _id: createdChat._id });
+                const newCreatedChat = await Chat.findOne({ _id: createdChat._id })
+                    .populate("users", "-password")
+                    .populate("chatAdmin", "-password");
+
                 return newCreatedChat;
             }
 
@@ -88,7 +109,11 @@ export const chatRepository = {
             await chatRepository.startConnection();
             const { id } = req.params;
             const { name } = req.body;
-            const updatedChat = await Chat.findByIdAndUpdate(id, { chatName: name }, { new: true });
+
+            const updatedChat = await Chat.findByIdAndUpdate(id, { chatName: name }, { new: true })
+                .populate("users", "-password")
+                .populate("chatAdmin", "-password");
+
             return updatedChat;
         } catch (error) {
             console.error(error);
@@ -114,8 +139,19 @@ export const chatRepository = {
             await chatRepository.startConnection();
             const { id } = req.params;
             const { userId } = req.body;
-            const updatedChat = await Chat.findByIdAndUpdate(id, { $push: { users: userId } }, { new: true });
-            return updatedChat;
+
+            const channelUser = await Chat.findOne({ _id: id, users: userId });
+
+            if (!channelUser) {
+                const updatedChat = await Chat.findByIdAndUpdate(id, { $push: { users: userId } }, { new: true })
+                    .populate("users", "-password")
+                    .populate("chatAdmin", "-password");
+
+                return updatedChat;
+            }
+
+            return null
+
         } catch (error) {
             console.error(error);
             return null;
@@ -128,7 +164,11 @@ export const chatRepository = {
             await chatRepository.startConnection();
             const { id } = req.params;
             const { userId } = req.body;
-            const updatedChat = await Chat.findByIdAndUpdate(id, { $pull: { users: userId } }, { new: true });
+
+            const updatedChat = await Chat.findByIdAndUpdate(id, { $pull: { users: userId } }, { new: true })
+                .populate("users", "-password")
+                .populate("chatAdmin", "-password");
+
             return updatedChat;
         } catch (error) {
             console.error(error);
