@@ -8,7 +8,7 @@ interface ChannelProps {
 export const Channel: React.FC<ChannelProps> = ({ channel, channelId }) => {
     return (
         <li className="channel" key={channel}>
-            <Link to={`/groupConversations/${channelId}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+            <Link to={`/home/groupConversations/${channelId}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                 <span>#</span> {channel}
             </Link>
         </li>
