@@ -38,7 +38,7 @@ export const userRepository = {
             const newUser = new User(req.body);
             await newUser.save();
 
-            const findNewUser = userRepository.findByIdAsync(newUser._id.toString());
+            const findNewUser = userRepository.findByIdAsync(newUser._id as string);
             return findNewUser;
         } catch (error) {
             console.error(error);
@@ -55,7 +55,7 @@ export const userRepository = {
             if (!existingUser || existingUser.password !== password) {
                 return null;
             }
-            return existingUser;
+            return existingUser.toExistingUser() as User;
 
         } catch (error) {
             console.error(error);
@@ -71,7 +71,7 @@ export const userRepository = {
             if (!updatedUser) {
                 throw new Error('No User Found');
             }
-            const findUpdatedUser = userRepository.findByIdAsync(updatedUser._id.toString());
+            const findUpdatedUser = userRepository.findByIdAsync(updatedUser._id as string);
             return findUpdatedUser;
         } catch (error) {
             console.error(error);
