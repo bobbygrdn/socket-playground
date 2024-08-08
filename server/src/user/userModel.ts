@@ -1,9 +1,18 @@
-import mongoose, { Model, Schema } from 'mongoose';
+import mongoose, { Model, Schema, Document } from 'mongoose';
 
-export type User = {
+export interface User extends Document {
+    _id: string;
     name: string;
     email: string;
     password: string;
+    profilePic: string;
+    toExistingUser(): ExistingUser;
+};
+
+export interface ExistingUser {
+    _id: string;
+    name: string;
+    email: string;
     profilePic: string;
 };
 
@@ -16,5 +25,14 @@ const mongooseUserSchema = new Schema<User>(
     },
     { timestamps: true }
 );
+
+mongooseUserSchema.methods.toExistingUser = function (this: User): ExistingUser {
+    return {
+        _id: this._id,
+        name: this.name,
+        email: this.email,
+        profilePic: this.profilePic
+    };
+};
 
 export const User: Model<User> = mongoose.model<User>("User", mongooseUserSchema);
