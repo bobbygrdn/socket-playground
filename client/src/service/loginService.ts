@@ -7,7 +7,7 @@ export const loginUser = async (props: LoginUserProps) => {
     const { email, password } = props;
 
     try {
-        const response = await fetch('http://localhost:5000/login', {
+        const response = await fetch(`${process.env.SERVER_URL}/api/users/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
