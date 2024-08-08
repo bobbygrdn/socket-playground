@@ -1,11 +1,27 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext } from 'react';
 import { loginUser } from '../../service/loginService';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../context/UserContext';
 import './Login.css';
+
+interface User {
+    _id: string;
+    name: string;
+    email: string;
+    profilePic: string;
+}
+
+interface Response {
+    success: boolean;
+    message: string;
+    statusCode: number;
+    responseObject: User;
+}
 
 export const Login: React.FC = (): JSX.Element => {
 
     const navigate = useNavigate();
+    const userContext = useContext(UserContext);
 
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [checked, setChecked] = useState(false);
@@ -22,11 +38,17 @@ export const Login: React.FC = (): JSX.Element => {
         const email = emailRef.current?.value;
         const password = passwordRef.current?.value;
 
-        const sendRequest = loginUser({ email, password });
+        try {
+            const sendRequest: Response = await loginUser({ email, password });
 
-        // TODO: Update to login the user upon success and not login the user upon any other response
-        if (await sendRequest) {
-            navigate('/home');
+            if (sendRequest.success) {
+                userContext?.setUser(sendRequest.responseObject);
+                navigate('/home');
+            } else {
+                console.error('Error logging in:', sendRequest.message);
+            }
+        } catch (error) {
+            console.error('Error logging in:', error);
         }
     }
 
