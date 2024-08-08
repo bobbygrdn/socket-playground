@@ -32,7 +32,7 @@ export const Channels = (): JSX.Element => {
             </h2>
             {isVisible && (
                 <ul>
-                    {channels.map((channel: Channel) => (
+                    {channels?.map((channel: Channel) => (
                         <Channel key={channel.chatName} channel={channel.chatName} channelId={channel._id} />
                     ))}
                 </ul>

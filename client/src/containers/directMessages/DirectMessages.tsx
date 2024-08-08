@@ -35,7 +35,7 @@ export const DirectMessages: React.FC = () => {
             </h2>
             {isVisible && (
                 <ul>
-                    {chats.map((chat: Chat) => (
+                    {chats?.map((chat: Chat) => (
                         <Connection key={chat._id} profileImage={profileImage} user={chat.chatName} userId={chat._id} />
                     ))}
                 </ul>
