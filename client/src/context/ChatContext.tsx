@@ -1,4 +1,4 @@
-import React, { createContext, useState, ReactNode, useContext, useEffect } from 'react';
+import React, { createContext, useState, ReactNode, useContext, useEffect, useMemo } from 'react';
 import { UserContext } from './UserContext';
 import { fetchChats } from '../service/chatService';
 
@@ -48,10 +48,22 @@ const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
                 setChannels(data?.responseObject?.filter((channel: Chat) => channel.isChannel === true));
             });
         }
-    }, [userContext]);
+    }, [userContext?.user?._id]);
+
+    const contextValue = useMemo(() => ({
+        chats,
+        setChats,
+        channels,
+        setChannels,
+        selectedChat,
+        setSelectedChat,
+        userContext,
+        notification,
+        setNotification
+    }), [chats, channels, selectedChat, userContext, notification]);
 
     return (
-        <ChatContext.Provider value={{ chats, setChats, channels, setChannels, selectedChat, setSelectedChat, notification, setNotification }}>
+        <ChatContext.Provider value={contextValue}>
             {children}
         </ChatContext.Provider>
     );
