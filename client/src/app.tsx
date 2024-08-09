@@ -7,8 +7,8 @@ import { UserProvider } from './context/UserContext';
 
 export const App: React.FC = (): JSX.Element => {
     return (
-        <UserProvider>
-            <Router>
+        <Router>
+            <UserProvider>
                 <Routes>
                     <Route path="/" element={<Authentication />}>
                         <Route path="login" element={<Login />} />
@@ -16,7 +16,7 @@ export const App: React.FC = (): JSX.Element => {
                     </Route>
                     <Route path="/home/*" element={<MainWindow />} />
                 </Routes>
-            </Router>
-        </UserProvider>
+            </UserProvider>
+        </Router>
     );
 }
