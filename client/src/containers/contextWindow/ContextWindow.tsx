@@ -26,24 +26,6 @@ export const ContextWindow: React.FC = (): JSX.Element => {
     const chatContext = useContext(ChatContext);
 
     useEffect(() => {
-        const fetchChats = async () => {
-            try {
-                const response = await fetch(`${ENDPOINT}/api/chats/${userContext?.user?._id}`);
-                const data = await response.json();
-
-                if (!data) return;
-
-                chatContext?.setChats(data?.responseObject?.filter((channel: Chat) => channel.isChannel === false));
-                chatContext?.setChannels(data?.responseObject?.filter((channel: Chat) => channel.isChannel === true));
-            } catch (error) {
-                console.error('Error fetching chats: ', error);
-            }
-        };
-
-        fetchChats();
-    }, [])
-
-    useEffect(() => {
         socket = io(ENDPOINT);
         socket.on("connected", () => console.log("Server Connected"))
         return () => {
