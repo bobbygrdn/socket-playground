@@ -19,6 +19,10 @@ interface ChatContextType {
     setChats: React.Dispatch<React.SetStateAction<Chat[]>>;
     channels: Chat[];
     setChannels: React.Dispatch<React.SetStateAction<Chat[]>>;
+    selectedChat: Chat | null;
+    setSelectedChat: React.Dispatch<React.SetStateAction<Chat | null>>;
+    notification: string | null;
+    setNotification: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 const ChatContext = createContext<ChatContextType | undefined>(undefined);
@@ -26,6 +30,8 @@ const ChatContext = createContext<ChatContextType | undefined>(undefined);
 const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [channels, setChannels] = useState<Chat[]>([]);
     const [chats, setChats] = useState<Chat[]>([]);
+    const [selectedChat, setSelectedChat] = useState<Chat | null>(null);
+    const [notification, setNotification] = useState<string | null>(null);
 
     const userContext = useContext(UserContext);
 
@@ -45,7 +51,7 @@ const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     }, [userContext]);
 
     return (
-        <ChatContext.Provider value={{ chats, setChats, channels, setChannels }}>
+        <ChatContext.Provider value={{ chats, setChats, channels, setChannels, selectedChat, setSelectedChat, notification, setNotification }}>
             {children}
         </ChatContext.Provider>
     );
