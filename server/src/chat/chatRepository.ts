@@ -38,6 +38,7 @@ export const chatRepository = {
             const { userId, id } = req.body;
 
             let isChat = await Chat.find({
+                isChannel: false,
                 $and: [
                     { users: { $elemMatch: { $eq: id } } },
                     { users: { $elemMatch: { $eq: userId } } },
@@ -53,8 +54,10 @@ export const chatRepository = {
             if (isChat.length > 0) {
                 return isChat[0];
             } else {
+                const personToChatWith = await User.findOne({ _id: userId });
+
                 let chatData = {
-                    chatName: "sender",
+                    chatName: personToChatWith?.name,
                     isChannel: false,
                     users: [userId, id],
                 }
