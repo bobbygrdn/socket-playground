@@ -1,5 +1,6 @@
 import { useState, useContext } from 'react';
 import { CollapseButton } from '../../components/collapseButton/CollapseButton';
+import { NewConversationButton } from '../../components/newConversationButton/NewConversationButton';
 import './DirectMessages.css';
 import profileImage from "../../assets/images/profile-image.png"
 import { Connection } from '../../components/connection/Connection';
@@ -10,7 +11,7 @@ type Chat = {
     _id: string;
 }
 
-export const DirectMessages: React.FC = () => {
+export const DirectMessages: React.FC = (): JSX.Element => {
 
     const chatContext = useContext(ChatContext);
 
@@ -27,6 +28,7 @@ export const DirectMessages: React.FC = () => {
             <h2 style={{
                 display: 'flex', fontSize: 'large', alignItems: 'center'
             }}>
+                <NewConversationButton />
                 Direct Messages
                 <CollapseButton
                     initialIsVisible={isVisible}
