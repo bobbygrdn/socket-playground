@@ -28,7 +28,7 @@ export const DirectMessages: React.FC = (): JSX.Element => {
             <h2 style={{
                 display: 'flex', fontSize: 'large', alignItems: 'center'
             }}>
-                <NewConversationButton />
+                <NewConversationButton isChannel={false} />
                 Direct Messages
                 <CollapseButton
                     initialIsVisible={isVisible}

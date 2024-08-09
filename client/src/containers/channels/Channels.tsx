@@ -25,7 +25,7 @@ export const Channels: React.FC = (): JSX.Element => {
     return (
         <section id="channels">
             <h2 style={{ display: 'flex' }}>
-                <NewConversationButton />
+                <NewConversationButton isChannel={true} />
                 Channels
                 <CollapseButton
                     initialIsVisible={isVisible}
