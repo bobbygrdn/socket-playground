@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import morgan from 'morgan';
 import { Server } from 'socket.io';
 import { userRouter } from '../src/user/userRouter';
 import { messageRouter } from '../src/message/messageRouter';
@@ -14,6 +15,8 @@ dotenv.config();
 
 app.use(cors({ origin: "http://localhost:8080" }));
 app.use(express.json());
+
+app.use(morgan('tiny'));
 
 app.use("/", healthCheckRouter);
 app.use("/api/users", userRouter);
