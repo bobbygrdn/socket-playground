@@ -1,10 +1,15 @@
 import { useNavigate } from "react-router-dom";
+import './NewConversationButton.css';
 
-export const NewConversationButton: React.FC = (): JSX.Element => {
+type NewConversationButtonProps = {
+    isChannel: boolean
+}
+
+export const NewConversationButton: React.FC<NewConversationButtonProps> = ({ isChannel }): JSX.Element => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate("/home/create-conversation");
+        navigate(`/home/create-conversation?isChannel=${isChannel}`);
     };
 
     return (
