@@ -24,7 +24,6 @@ export const Login: React.FC = (): JSX.Element => {
     const userContext = useContext(UserContext);
 
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-    const [checked, setChecked] = useState(false);
 
     const togglePasswordVisibility = () => {
         setIsPasswordVisible(prevState => !prevState);
@@ -43,6 +42,7 @@ export const Login: React.FC = (): JSX.Element => {
 
             if (sendRequest.success) {
                 userContext?.setUser(sendRequest.responseObject);
+                localStorage.setItem('userInfo', JSON.stringify(sendRequest.responseObject));
                 navigate('/home');
             } else {
                 console.error('Error logging in:', sendRequest.message);
