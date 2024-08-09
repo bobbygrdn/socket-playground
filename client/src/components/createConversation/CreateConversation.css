@@ -1,0 +1,70 @@
+.create-conversation-section {
+    background-color: #2C2F33; /* Dark background */
+    color: #ffffff; /* White text */
+    font-family: 'Arial', sans-serif; /* Font style */
+    padding: 20px; /* Spacing around content */
+}
+
+.create-conversation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.create-conversation-title {
+    font-size: 24px; /* Larger title text */
+}
+
+.create-conversation-status {
+    font-size: 14px;
+    color: #b9bbbe; /* Lighter text color for status */
+}
+
+.create-conversation-search {
+    margin-bottom: 20px;
+}
+
+.create-conversation-search-input {
+    width: 100%; /* Full width input field */
+    padding: 10px;
+    border-radius: 4px; /* Rounded corners on input field */
+    border: none;
+    background-color: #40444b; /* Darker background for input */
+    color: #ffffff; /* White text */
+}
+
+.create-conversation-form {
+    border: none;
+    margin-top: 20px;
+}
+
+.create-conversation-subtitle {
+    font-size: 20px; /* Subtitle text size */
+    margin-bottom: 10px;
+}
+
+.create-conversation-label {
+    display: block; /* Label on its own line */
+    margin-bottom: 10px;
+}
+
+.create-conversation-input {
+    width: 100%; /* Full width input field */
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 4px; /* Rounded corners on input field */
+    border: none;
+    background-color: #40444b; /* Darker background for input */
+    color: #ffffff; /* White text */
+}
+
+.create-conversation-button {
+   background-color: #7289DA; /* Button color similar to Discord's brand color */
+   color: #ffffff; /* White text on button */
+   border: none; /* No border */
+   padding: 10px 20px; /* Padding inside button */
+   margin-top: 10px; /* Space above button */
+   cursor: pointer; /* Pointer cursor on hover */
+   border-radius: 4px; /* Rounded corners on button */
+}
