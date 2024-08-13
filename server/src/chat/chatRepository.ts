@@ -35,13 +35,13 @@ export const chatRepository = {
         try {
             await chatRepository.startConnection();
 
-            const { userId, id } = req.body;
+            const { recipientId, creatorId } = req.body;
 
             let isChat = await Chat.find({
                 isChannel: false,
                 $and: [
-                    { users: { $elemMatch: { $eq: id } } },
-                    { users: { $elemMatch: { $eq: userId } } },
+                    { users: { $elemMatch: { $eq: recipientId } } },
+                    { users: { $elemMatch: { $eq: creatorId } } },
                 ],
             })
                 .populate("users", "-password");
@@ -54,12 +54,12 @@ export const chatRepository = {
             if (isChat.length > 0) {
                 return isChat[0];
             } else {
-                const personToChatWith = await User.findOne({ _id: userId });
+                const personToChatWith = await User.findOne({ _id: recipientId });
 
                 let chatData = {
                     chatName: personToChatWith?.name,
                     isChannel: false,
-                    users: [userId, id],
+                    users: [creatorId, recipientId],
                 }
 
                 try {
